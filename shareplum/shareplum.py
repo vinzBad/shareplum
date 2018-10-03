@@ -427,7 +427,7 @@ class _List(object):
         except AttributeError:
             return value
 
-    def GetListItems(self, viewname=None, fields=None, query=None, rowlimit=0):
+    def GetListItems(self, viewname=None, fields=None, query=None, rowlimit=0, convert_result_to_display = False):
         """Get Items from current list
            rowlimit defaulted to 0 (unlimited)
         """
@@ -501,7 +501,8 @@ class _List(object):
                 # Strip the 'ows_' from the beginning with key[4:]
                 data.append({key[4:]: value for (key, value) in row.items() if key[4:] in viewfields})
 
-            self._convert_to_display(data)
+            if convert_result_to_display:
+                self._convert_to_display(data)
 
             return data
         else:
